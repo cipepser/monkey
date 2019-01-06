@@ -3,10 +3,10 @@ package evaluator
 import (
 	"testing"
 
-	"github.com/cipepser/goInterpreter-sample/appendix/src/monkey/ast"
-	"github.com/cipepser/goInterpreter-sample/appendix/src/monkey/lexer"
-	"github.com/cipepser/goInterpreter-sample/appendix/src/monkey/object"
-	"github.com/cipepser/goInterpreter-sample/appendix/src/monkey/parser"
+	"github.com/cipepser/monkey/ast"
+	"github.com/cipepser/monkey/lexer"
+	"github.com/cipepser/monkey/object"
+	"github.com/cipepser/monkey/parser"
 )
 
 func TestDefineMacros(t *testing.T) {

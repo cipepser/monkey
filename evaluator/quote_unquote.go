@@ -3,9 +3,9 @@ package evaluator
 import (
 	"fmt"
 
-	"github.com/cipepser/goInterpreter-sample/appendix/src/monkey/ast"
-	"github.com/cipepser/goInterpreter-sample/appendix/src/monkey/object"
-	"github.com/cipepser/goInterpreter-sample/appendix/src/monkey/token"
+	"github.com/cipepser/monkey/ast"
+	"github.com/cipepser/monkey/object"
+	"github.com/cipepser/monkey/token"
 )
 
 func quote(node ast.Node, env *object.Environment) object.Object {

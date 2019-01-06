@@ -3,7 +3,7 @@ package ast
 import (
 	"testing"
 
-	"github.com/cipepser/goInterpreter-sample/appendix/src/monkey/token"
+	"github.com/cipepser/monkey/token"
 )
 
 func TestString(t *testing.T) {

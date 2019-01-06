@@ -5,13 +5,13 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/cipepser/goInterpreter-sample/appendix/src/monkey/object"
+	"github.com/cipepser/monkey/object"
 
-	"github.com/cipepser/goInterpreter-sample/appendix/src/monkey/evaluator"
+	"github.com/cipepser/monkey/evaluator"
 
-	"github.com/cipepser/goInterpreter-sample/appendix/src/monkey/parser"
+	"github.com/cipepser/monkey/parser"
 
-	"github.com/cipepser/goInterpreter-sample/appendix/src/monkey/lexer"
+	"github.com/cipepser/monkey/lexer"
 )
 
 const PROMPT = ">> "

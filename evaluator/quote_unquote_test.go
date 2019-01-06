@@ -3,7 +3,7 @@ package evaluator
 import (
 	"testing"
 
-	"github.com/cipepser/goInterpreter-sample/appendix/src/monkey/object"
+	"github.com/cipepser/monkey/object"
 )
 
 func TestQuote(t *testing.T) {

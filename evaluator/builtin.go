@@ -3,7 +3,7 @@ package evaluator
 import (
 	"fmt"
 
-	"github.com/cipepser/goInterpreter-sample/appendix/src/monkey/object"
+	"github.com/cipepser/monkey/object"
 )
 
 var builtins = map[string]*object.Builtin{

@@ -3,9 +3,9 @@ package evaluator
 import (
 	"testing"
 
-	"github.com/cipepser/goInterpreter-sample/appendix/src/monkey/lexer"
-	"github.com/cipepser/goInterpreter-sample/appendix/src/monkey/object"
-	"github.com/cipepser/goInterpreter-sample/appendix/src/monkey/parser"
+	"github.com/cipepser/monkey/lexer"
+	"github.com/cipepser/monkey/object"
+	"github.com/cipepser/monkey/parser"
 )
 
 func TestEvalIntegerExpression(t *testing.T) {
