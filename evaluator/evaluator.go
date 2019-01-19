@@ -86,7 +86,7 @@ func Eval(node ast.Node, env *object.Environment) object.Object {
 			return function
 		}
 
-		args := evalExpression(node.Arguments, env)
+		args := evalExpressions(node.Arguments, env)
 		if len(args) == 1 && isError(args[0]) {
 			return args[0]
 		}
@@ -96,7 +96,7 @@ func Eval(node ast.Node, env *object.Environment) object.Object {
 		return &object.String{Value: node.Value}
 
 	case *ast.ArrayLiteral:
-		elements := evalExpression(node.Elements, env)
+		elements := evalExpressions(node.Elements, env)
 		if len(elements) == 1 && isError(elements[0]) {
 			return elements[0]
 		}
@@ -179,16 +179,18 @@ func evalInfixExpression(operator string, left, right object.Object) object.Obje
 	switch {
 	case left.Type() == object.INTEGER_OBJ && right.Type() == object.INTEGER_OBJ:
 		return evalIntegerInfixExpression(operator, left, right)
+	case left.Type() == object.STRING_OBJ && right.Type() == object.STRING_OBJ:
+		return evalStringInfixExpression(operator, left, right)
 	case operator == "==":
 		return nativeBoolToBooleanObject(left == right)
 	case operator == "!=":
 		return nativeBoolToBooleanObject(left != right)
 	case left.Type() != right.Type():
-		return newError("type mismatch: %s %s %s", left.Type(), operator, right.Type())
-	case left.Type() == object.STRING_OBJ && right.Type() == object.STRING_OBJ:
-		return evalStringInfixExppression(operator, left, right)
+		return newError("type mismatch: %s %s %s",
+			left.Type(), operator, right.Type())
 	default:
-		return newError("unknown operator: %s %s %s", left.Type(), operator, right.Type())
+		return newError("unknown operator: %s %s %s",
+			left.Type(), operator, right.Type())
 	}
 }
 
@@ -233,7 +235,7 @@ func evalIfExpression(ie *ast.IfExpression, env *object.Environment) object.Obje
 	}
 }
 
-func evalStringInfixExppression(operator string, left, right object.Object) object.Object {
+func evalStringInfixExpression(operator string, left, right object.Object) object.Object {
 	if operator != "+" {
 		return newError("unknown operator: %s %s %s", left.Type(), operator, right.Type())
 	}
@@ -295,7 +297,7 @@ func evalIdentifier(node *ast.Identifier, env *object.Environment) object.Object
 	return newError("identifier not found: " + node.Value)
 }
 
-func evalExpression(exps []ast.Expression, env *object.Environment) []object.Object {
+func evalExpressions(exps []ast.Expression, env *object.Environment) []object.Object {
 	var result []object.Object
 
 	for _, e := range exps {
@@ -338,7 +340,7 @@ func extendFunctionEnv(fn *object.Function, args []object.Object) *object.Enviro
 
 func unwrapReturnValue(obj object.Object) object.Object {
 	if returnValue, ok := obj.(*object.ReturnValue); ok {
-		return returnValue
+		return returnValue.Value
 	}
 
 	return obj
