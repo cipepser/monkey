@@ -12,13 +12,13 @@ import (
 const (
 	_ int = iota
 	LOWEST
-	EQUALS      // ==
-	LESSGREATER // > or <
-	SUM         // +
-	PRODUCT     // *
-	PREFIX      // -X or !X
-	CALL        // myFunction(X)
-	INDEX       // array[index]
+	EQUALS       // ==
+	LESSGREATER  // > or <
+	SUM          // +
+	PRODUCT      // *
+	PREFIX       // -X or !X
+	CALL         // myFunction(X)
+	INDEX        // array[index]
 )
 
 var precedences = map[token.TokenType]int{
@@ -48,7 +48,7 @@ type Parser struct {
 
 type (
 	prefixParseFn func() ast.Expression
-	infixParseFn  func(expression ast.Expression) ast.Expression
+	infixParseFn func(expression ast.Expression) ast.Expression
 )
 
 func New(l *lexer.Lexer) *Parser {
@@ -150,6 +150,10 @@ func (p *Parser) parseLetStatement() *ast.LetStatement {
 	p.nextToken()
 
 	stmt.Value = p.parseExpression(LOWEST)
+
+	if fl, ok := stmt.Value.(*ast.FunctionLiteral); ok {
+		fl.Name = stmt.Name.Value
+	}
 
 	if p.peekTokenIs(token.SEMICOLON) {
 		p.nextToken()
