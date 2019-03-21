@@ -765,22 +765,24 @@ func TestRecursiveFunctions(t *testing.T) {
            `,
 			expected: 0,
 		},
-		//{
-		//	input: `
-		//	let map = fn(arr, f) {
-		//		let iter = fn(arr, accumulated) {
-		//			if (len(arr) == 0) {
-		//				accumulated
-		//			} else {
-		//				iter(rest(arr), push(accumulated, f(first(arr))));
-		//			}
-		//		};
-		//
-		//		iter(arr, []);
-		//    };
-		//	`,
-		//	expected: 0,
-		//},
+		{
+			input: `
+			let map = fn(arr, f) {
+				let iter = fn(arr, accumulated) {
+					if (len(arr) == 0) {
+						accumulated
+					} else {
+						iter(rest(arr), push(accumulated, f(first(arr))));
+					}
+				};
+		   
+				iter(arr, []);
+		    };
+
+            map([1,2,3], fn(x) { x * 2 } )
+			`,
+			expected: []int{2, 4, 6},
+		},
 	}
 
 	runVmTests(t, tests)
